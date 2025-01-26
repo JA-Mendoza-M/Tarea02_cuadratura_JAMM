@@ -1,0 +1,21 @@
+site_name: Cuadratura Numérica
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Introducción al problema: index.md
+  - Explicación: explanation.md
+  - Tutoriales: tutorials.md
+  - Referencia: reference.md
+
