@@ -278,6 +278,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#Cuadratura.cuadrature.encontrar_N_aproximado" class="md-nav__link">
+    <span class="md-ellipsis">
+      encontrar_N_aproximado
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#Cuadratura.cuadrature.escalado" class="md-nav__link">
     <span class="md-ellipsis">
       escalado
@@ -351,6 +360,15 @@
   <a href="#Cuadratura.cuadrature.Aprox_integ" class="md-nav__link">
     <span class="md-ellipsis">
       Aprox_integ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#Cuadratura.cuadrature.encontrar_N_aproximado" class="md-nav__link">
+    <span class="md-ellipsis">
+      encontrar_N_aproximado
     </span>
   </a>
   
@@ -436,37 +454,191 @@
 
     <div class="doc doc-contents ">
 
-        <p>Calcula la integral aproximada utilizando cuadratura Gaussiana.
-Parámetros:
-    func (function): Función a integrar.
-    pesos (array): Pesos de cuadratura.
-    puntos (array): Puntos de colocación.
-Retorna:
-    float: Resultado de la integral aproximada.</p>
+        <p>Calcula la integral aproximada utilizando cuadratura Gaussiana.</p>
 
+
+<details class="argumentos" open>
+  <summary>Argumentos</summary>
+  <p>func (function): Función a integrar.
+pesos (np.ndarray): Pesos de cuadratura.
+puntos (np.ndarray): Puntos de colocación.</p>
+</details>
+
+<details class="devuelve" open>
+  <summary>Devuelve</summary>
+  <p>Un float: Resultado de la integral aproximada.</p>
+</details>
+
+<details class="ejemplo" open>
+  <summary>Ejemplo</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>puntos = np.array([1.11270167, 2.0, 2.88729833])
+pesos = np.array([0.55555556, 0.88888889, 0.55555556])
+Aprox_integ(func_grado6, pesos, puntos)
+309.45365734</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
             <details class="quote">
               <summary>Source code in <code>Cuadratura/cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">Aprox_integ</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">pesos</span><span class="p">,</span> <span class="n">puntos</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">Aprox_integ</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">pesos</span><span class="p">,</span> <span class="n">puntos</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calcula la integral aproximada utilizando cuadratura Gaussiana.</span>
-<span class="sd">    Parámetros:</span>
+
+<span class="sd">    Argumentos:</span>
 <span class="sd">        func (function): Función a integrar.</span>
-<span class="sd">        pesos (array): Pesos de cuadratura.</span>
-<span class="sd">        puntos (array): Puntos de colocación.</span>
-<span class="sd">    Retorna:</span>
-<span class="sd">        float: Resultado de la integral aproximada.</span>
+<span class="sd">        pesos (np.ndarray): Pesos de cuadratura.</span>
+<span class="sd">        puntos (np.ndarray): Puntos de colocación.</span>
+
+<span class="sd">    Devuelve:</span>
+<span class="sd">         Un float: Resultado de la integral aproximada.</span>
+
+<span class="sd">    Ejemplo:</span>
+<span class="sd">        &gt;&gt;&gt; puntos = np.array([1.11270167, 2.0, 2.88729833])</span>
+<span class="sd">        &gt;&gt;&gt; pesos = np.array([0.55555556, 0.88888889, 0.55555556])</span>
+<span class="sd">        &gt;&gt;&gt; Aprox_integ(func_grado6, pesos, puntos)</span>
+<span class="sd">        309.45365734</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pesos</span> <span class="o">*</span> <span class="n">func</span><span class="p">(</span><span class="n">puntos</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="Cuadratura.cuadrature.encontrar_N_aproximado" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">encontrar_N_aproximado</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lim_inf</span><span class="p">,</span> <span class="n">lim_sup</span><span class="p">,</span> <span class="n">resultado_correcto</span><span class="p">,</span> <span class="n">tolerancia</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Encuentra el valor de N necesario para aproximar la integral con una tolerancia específica.</p>
+
+
+<details class="argumentos" open>
+  <summary>Argumentos</summary>
+  <p>func (function): Función a integrar.
+lim_inf (float): Límite inferior de integración.
+lim_sup (float): Límite superior de integración.
+resultado_correcto (float): Valor correcto de la integral para comparar.
+tolerancia (float): Tolerancia permitida para el error.</p>
+</details>
+
+<details class="devuelve" open>
+  <summary>Devuelve</summary>
+  <p>int: Número de puntos (N) necesario para alcanzar la tolerancia.</p>
+</details>
+
+<details class="ejemplo" open>
+  <summary>Ejemplo</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>func = lambda x: x**2
+a, b = 0, 1
+resultado_correcto = 1/3
+tolerancia = 1e-6
+encontrar_N_aproximado(func, a, b, resultado_correcto, tolerancia)
+3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+            <details class="quote">
+              <summary>Source code in <code>Cuadratura/cuadrature.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">encontrar_N_aproximado</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lim_inf</span><span class="p">,</span><span class="n">lim_sup</span><span class="p">,</span><span class="n">resultado_correcto</span><span class="p">,</span> <span class="n">tolerancia</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encuentra el valor de N necesario para aproximar la integral con una tolerancia específica.</span>
+
+<span class="sd">    Argumentos:</span>
+<span class="sd">        func (function): Función a integrar.</span>
+<span class="sd">        lim_inf (float): Límite inferior de integración.</span>
+<span class="sd">        lim_sup (float): Límite superior de integración.</span>
+<span class="sd">        resultado_correcto (float): Valor correcto de la integral para comparar.</span>
+<span class="sd">        tolerancia (float): Tolerancia permitida para el error.</span>
+
+<span class="sd">    Devuelve:</span>
+<span class="sd">        int: Número de puntos (N) necesario para alcanzar la tolerancia.</span>
+
+<span class="sd">    Ejemplo:</span>
+<span class="sd">        &gt;&gt;&gt; func = lambda x: x**2</span>
+<span class="sd">        &gt;&gt;&gt; a, b = 0, 1</span>
+<span class="sd">        &gt;&gt;&gt; resultado_correcto = 1/3</span>
+<span class="sd">        &gt;&gt;&gt; tolerancia = 1e-6</span>
+<span class="sd">        &gt;&gt;&gt; encontrar_N_aproximado(func, a, b, resultado_correcto, tolerancia)</span>
+<span class="sd">        3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">error</span> <span class="o">&gt;</span> <span class="n">tolerancia</span><span class="p">:</span>
+        <span class="n">puntos</span><span class="p">,</span> <span class="n">pesos</span> <span class="o">=</span> <span class="n">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="n">puntos_esc</span><span class="p">,</span> <span class="n">pesos_esc</span> <span class="o">=</span> <span class="n">escalado</span><span class="p">(</span><span class="n">lim_inf</span><span class="p">,</span> <span class="n">lim_sup</span><span class="p">,</span> <span class="n">puntos</span><span class="p">,</span> <span class="n">pesos</span><span class="p">)</span>
+        <span class="n">resultado</span> <span class="o">=</span> <span class="n">Aprox_integ</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">pesos_esc</span><span class="p">,</span> <span class="n">puntos_esc</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">resultado_correcto</span> <span class="o">-</span> <span class="n">resultado</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">, Resultado = </span><span class="si">{</span><span class="n">resultado</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">, Error = </span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s2">.8e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">&lt;=</span> <span class="n">tolerancia</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Con N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">, se alcanza el resultado correcto: </span><span class="si">{</span><span class="n">resultado</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">N</span>
+        <span class="n">N</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -484,38 +656,80 @@ Retorna:
 
     <div class="doc doc-contents ">
 
-        <p>Escala los puntos y pesos de [-1, 1] al intervalo [lim_inf, lim_sup].
-Parámetros:
-    lim_inf (float): Límite inferior de integración.
-    lim_sup (float): Límite superior de integración.
-    puntos (array): Puntos en el intervalo [-1, 1].
-    pesos (array): Pesos en el intervalo [-1, 1].
-Retorna:
-    tuple: Puntos y pesos escalados al intervalo [lim_inf, lim_sup].</p>
+        <p>Escala los puntos y pesos de [-1, 1] al intervalo [lim_inf, lim_sup].</p>
 
+
+<details class="argumentos" open>
+  <summary>Argumentos</summary>
+  <p>lim_inf (tipo float): Límite inferior de integración.
+lim_sup (tipo float): Límite superior de integración.
+puntos (np.ndarray): Puntos en el intervalo [-1, 1].
+pesos (np.ndarray): Pesos en el intervalo [-1, 1].</p>
+</details>
+
+<details class="devuelve" open>
+  <summary>Devuelve</summary>
+  <p>Tupla (tuple):
+    - np.ndarray: Puntos escalados al intervalo [lim_inf, lim_sup].
+    - np.ndarray: Pesos escalados al intervalo [lim_inf, lim_sup].</p>
+</details>
+
+<details class="ejemplo" open>
+  <summary>Ejemplo</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>puntos = np.array([-0.77459667, 0.0, 0.77459667])
+pesos = np.array([0.55555556, 0.88888889, 0.55555556])
+escalado(1, 3, puntos, pesos)
+(array([1.11270167, 2.0, 2.88729833]), array([0.55555556, 0.88888889, 0.55555556]))</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
             <details class="quote">
               <summary>Source code in <code>Cuadratura/cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">escalado</span><span class="p">(</span><span class="n">lim_inf</span><span class="p">,</span> <span class="n">lim_sup</span><span class="p">,</span> <span class="n">puntos</span><span class="p">,</span> <span class="n">pesos</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">escalado</span><span class="p">(</span><span class="n">lim_inf</span><span class="p">,</span> <span class="n">lim_sup</span><span class="p">,</span> <span class="n">puntos</span><span class="p">,</span> <span class="n">pesos</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Escala los puntos y pesos de [-1, 1] al intervalo [lim_inf, lim_sup].</span>
-<span class="sd">    Parámetros:</span>
-<span class="sd">        lim_inf (float): Límite inferior de integración.</span>
-<span class="sd">        lim_sup (float): Límite superior de integración.</span>
-<span class="sd">        puntos (array): Puntos en el intervalo [-1, 1].</span>
-<span class="sd">        pesos (array): Pesos en el intervalo [-1, 1].</span>
-<span class="sd">    Retorna:</span>
-<span class="sd">        tuple: Puntos y pesos escalados al intervalo [lim_inf, lim_sup].</span>
+
+<span class="sd">    Argumentos:</span>
+<span class="sd">        lim_inf (tipo float): Límite inferior de integración.</span>
+<span class="sd">        lim_sup (tipo float): Límite superior de integración.</span>
+<span class="sd">        puntos (np.ndarray): Puntos en el intervalo [-1, 1].</span>
+<span class="sd">        pesos (np.ndarray): Pesos en el intervalo [-1, 1].</span>
+
+<span class="sd">    Devuelve:</span>
+<span class="sd">        Tupla (tuple):</span>
+<span class="sd">            - np.ndarray: Puntos escalados al intervalo [lim_inf, lim_sup].</span>
+<span class="sd">            - np.ndarray: Pesos escalados al intervalo [lim_inf, lim_sup].</span>
+
+<span class="sd">    Ejemplo:</span>
+<span class="sd">        &gt;&gt;&gt; puntos = np.array([-0.77459667, 0.0, 0.77459667])</span>
+<span class="sd">        &gt;&gt;&gt; pesos = np.array([0.55555556, 0.88888889, 0.55555556])</span>
+<span class="sd">        &gt;&gt;&gt; escalado(1, 3, puntos, pesos)</span>
+<span class="sd">        (array([1.11270167, 2.0, 2.88729833]), array([0.55555556, 0.88888889, 0.55555556]))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lim_sup</span> <span class="o">-</span> <span class="n">lim_inf</span><span class="p">)</span> <span class="o">*</span> <span class="n">puntos</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lim_sup</span> <span class="o">+</span> <span class="n">lim_inf</span><span class="p">),</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lim_sup</span> <span class="o">-</span> <span class="n">lim_inf</span><span class="p">)</span> <span class="o">*</span> <span class="n">pesos</span>
 </code></pre></div></td></tr></table></div>
@@ -535,15 +749,35 @@ Retorna:
 
     <div class="doc doc-contents ">
 
-        <p>Define la función a integrar: x^6 - x^2*sin(2x).
-Parámetros:
-    xvar: Valores en los que se evalúa la función.
-Retorna:
-    float : Resultado de la evaluación de la función.</p>
+        <p>Se define la función matemática x^6 - x^2 * sin(2x) a integrar.</p>
 
+
+<details class="argumentos" open>
+  <summary>Argumentos</summary>
+  <p>xvar (tipo float): Valores en los que se evalúa la función.</p>
+</details>
+
+<details class="devuelve" open>
+  <summary>Devuelve</summary>
+  <p>Un valor tipo float que es el resultado de la evaluación de la función.</p>
+</details>
+
+<details class="ejemplo" open>
+  <summary>Ejemplo</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>x = np.array([1, 2, 3])
+func_grado6(x)
+array([-0.90929743, 62.72789228, 717.97165513])</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
             <details class="quote">
               <summary>Source code in <code>Cuadratura/cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 4</span>
+<span class="normal"> 5</span>
 <span class="normal"> 6</span>
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
@@ -551,13 +785,26 @@ Retorna:
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">func_grado6</span><span class="p">(</span><span class="n">xvar</span><span class="p">):</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">func_grado6</span><span class="p">(</span><span class="n">xvar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Define la función a integrar: x^6 - x^2*sin(2x).</span>
-<span class="sd">    Parámetros:</span>
-<span class="sd">        xvar: Valores en los que se evalúa la función.</span>
-<span class="sd">    Retorna:</span>
-<span class="sd">        float : Resultado de la evaluación de la función.</span>
+<span class="sd">    Se define la función matemática x^6 - x^2 * sin(2x) a integrar.</span>
+
+<span class="sd">    Argumentos:</span>
+<span class="sd">        xvar (tipo float): Valores en los que se evalúa la función.</span>
+
+<span class="sd">    Devuelve:</span>
+<span class="sd">        Un valor tipo float que es el resultado de la evaluación de la función.</span>
+
+<span class="sd">    Ejemplo:</span>
+<span class="sd">        &gt;&gt;&gt; x = np.array([1, 2, 3])</span>
+<span class="sd">        &gt;&gt;&gt; func_grado6(x)</span>
+<span class="sd">        array([-0.90929743, 62.72789228, 717.97165513])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">xvar</span><span class="o">**</span><span class="mi">6</span> <span class="o">-</span> <span class="n">xvar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">xvar</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -577,21 +824,38 @@ Retorna:
 
     <div class="doc doc-contents ">
 
-        <p>Calcula los puntos y pesos de cuadratura Gauss-Legendre en el intervalo [-1, 1].
-Parámetros:
-    N (int): Número de puntos de cuadratura.
-Retorna:
-    tuple: Puntos y pesos en el intervalo estándar [-1, 1].</p>
+        <p>Calcula los puntos y pesos de cuadratura Gauss-Legendre para el intervalo [-1, 1].</p>
 
+
+<details class="argumentos" open>
+  <summary>Argumentos</summary>
+  <p>N (tipo int): Número de puntos de cuadratura.</p>
+</details>
+
+<details class="devuelve" open>
+  <summary>Devuelve</summary>
+  <p>Una tupla (tuple):
+    - np.ndarray: Puntos en el intervalo estándar [-1, 1].
+    - np.ndarray: Pesos en el intervalo estándar [-1, 1].</p>
+</details>
+
+<details class="ejemplo" open>
+  <summary>Ejemplo</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>puntos, pesos = gaussxw(3)
+print(puntos)
+[ 0.77459667  0.          -0.77459667]
+print(pesos)
+[0.55555556 0.88888889 0.55555556]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
             <details class="quote">
               <summary>Source code in <code>Cuadratura/cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
@@ -612,19 +876,47 @@ Retorna:
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calcula los puntos y pesos de cuadratura Gauss-Legendre en el intervalo [-1, 1].</span>
-<span class="sd">    Parámetros:</span>
-<span class="sd">        N (int): Número de puntos de cuadratura.</span>
-<span class="sd">    Retorna:</span>
-<span class="sd">        tuple: Puntos y pesos en el intervalo estándar [-1, 1].</span>
+<span class="sd">    Calcula los puntos y pesos de cuadratura Gauss-Legendre para el intervalo [-1, 1].</span>
+
+<span class="sd">    Argumentos:</span>
+<span class="sd">        N (tipo int): Número de puntos de cuadratura.</span>
+
+<span class="sd">    Devuelve:</span>
+<span class="sd">        Una tupla (tuple):</span>
+<span class="sd">            - np.ndarray: Puntos en el intervalo estándar [-1, 1].</span>
+<span class="sd">            - np.ndarray: Pesos en el intervalo estándar [-1, 1].</span>
+
+<span class="sd">    Ejemplo:</span>
+<span class="sd">        &gt;&gt;&gt; puntos, pesos = gaussxw(3)</span>
+<span class="sd">        &gt;&gt;&gt; print(puntos)</span>
+<span class="sd">        [ 0.77459667  0.          -0.77459667]</span>
+<span class="sd">        &gt;&gt;&gt; print(pesos)</span>
+<span class="sd">        [0.55555556 0.88888889 0.55555556]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Aproximación inicial</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span>
 
-    <span class="c1"># Refinamiento de los puntos utilizando el método de Newton</span>
+    <span class="c1"># Creación de los puntos utilizando el método de Newton</span>
     <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-15</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="k">while</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
