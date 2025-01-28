@@ -11,9 +11,10 @@ I = \sum_{i=1}^{N} w_i f(x_i)
 $$
 
 donde:
-- $x_i$ son los puntos de integración (ceros de los polinomios de Legendre).
-- $w_i$ son los pesos correspondientes a esos puntos.
-- $f(x_i)$ es el valor de la función que estamos integrando en los puntos de integración.
+
+- Donde $x_i$ son los puntos de integración (ceros de los polinomios de Legendre).
+- Donde $w_i$ son los pesos correspondientes a esos puntos.
+- Además $f(x_i)$ es el valor de la función que estamos integrando en los puntos de integración.
 
 ## Diferencias con los Métodos de Newton-Cotes
 
@@ -34,7 +35,7 @@ donde:
 ## Ventajas del Método
 
 - Alta precisión con un número relativamente bajo de puntos de integración.
-- Convergencia rápida: el error decrece como $\text{const.}/N^2$ al aumentar los puntos de muestreo.
+- Convergencia rápida: el error decrece como $frac{ \text{constante}}{N^2} $ al aumentar los puntos de muestreo.
 - Es ideal para funciones bien comportadas en el intervalo de integración.
 
 ## Limitaciones del Método
