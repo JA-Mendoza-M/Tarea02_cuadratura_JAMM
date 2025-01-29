@@ -473,10 +473,9 @@
 <div class="arithmatex">\[
 I = \sum_{i=1}^{N} w_i f(x_i)
 \]</div>
-<p>donde:</p>
 <ul>
 <li>Donde <span class="arithmatex">\(x_i\)</span> son los puntos de integración (ceros de los polinomios de Legendre).</li>
-<li>Donde <span class="arithmatex">\(w_i\)</span> son los pesos correspondientes a esos puntos.</li>
+<li>Los pesos corresppondientes a los puntos se representan con <span class="arithmatex">\(w_i\)</span> .</li>
 <li>Además <span class="arithmatex">\(f(x_i)\)</span> es el valor de la función que estamos integrando en los puntos de integración.</li>
 </ul>
 <h2 id="diferencias-con-los-metodos-de-newton-cotes">Diferencias con los Métodos de Newton-Cotes</h2>
@@ -499,7 +498,7 @@ I = \sum_{i=1}^{N} w_i f(x_i)
 <h2 id="ventajas-del-metodo">Ventajas del Método</h2>
 <ul>
 <li>Alta precisión con un número relativamente bajo de puntos de integración.</li>
-<li>Convergencia rápida: el error decrece como $frac{ \text{constante}}{N^2} $ al aumentar los puntos de muestreo.</li>
+<li>Convergencia rápida: el error decrece como <span class="arithmatex">\(frac{constante}{N^2}\)</span> al aumentar los puntos de muestreo.</li>
 <li>Es ideal para funciones bien comportadas en el intervalo de integración.</li>
 </ul>
 <h2 id="limitaciones-del-metodo">Limitaciones del Método</h2>
@@ -512,12 +511,18 @@ I = \sum_{i=1}^{N} w_i f(x_i)
 <div class="arithmatex">\[
 \int_{-1}^1 P_N(x) P_M(x) \, dx = \frac{2\delta_{MN}}{2N+1}.
 \]</div>
-<p>Se definen de forma recursiva:
-- <span class="arithmatex">\(P_0(x) = 1\)</span>, <span class="arithmatex">\(P_1(x) = x\)</span>,
-- La relación de recurrencia es:
+<p>Se definen de forma recursiva:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(P_0(x) = 1\)</span>, <span class="arithmatex">\(P_1(x) = x\)</span></p>
+</li>
+<li>
+<p>La relación de recurrencia es:
   $$
   (N+1)P_{N+1}(x) = (2N+1)xP_N(x) - NP_{N-1}(x).
   $$</p>
+</li>
+</ul>
 <p>Alternativamente, pueden definirse mediante la fórmula de Rodrigues:
 $$
 P_N(x) = \frac{1}{2^N N!} \frac{d^N}{dx^N}\left[(x^2 - 1)^N\right].
