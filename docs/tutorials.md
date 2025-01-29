@@ -146,6 +146,47 @@ def Aprox_integ(func, pesos, puntos):
     return np.sum(pesos * func(puntos))
 ```
 
+### Paso 5: Encontrar en N necesario
+
+Se define una función que itera hasta encontrar un valor cuyo error sea igual o menor al valor de tolerancia:
+
+```python
+def encontrar_N_aproximado(func, lim_inf,lim_sup,resultado_correcto, tolerancia):
+    """
+    Encuentra el valor de N necesario para aproximar la integral con una tolerancia específica.
+    
+    Argumentos:
+        func (function): Función a integrar.
+        lim_inf (float): Límite inferior de integración.
+        lim_sup (float): Límite superior de integración.
+        resultado_correcto (float): Valor correcto de la integral para comparar.
+        tolerancia (float): Tolerancia permitida para el error.
+    
+    Devuelve:
+        int: Número de puntos (N) necesario para alcanzar la tolerancia.
+    
+    Ejemplo:
+        >>> func = lambda x: x**2
+        >>> a, b = 0, 1
+        >>> resultado_correcto = 1/3
+        >>> tolerancia = 1e-6
+        >>> encontrar_N_aproximado(func, a, b, resultado_correcto, tolerancia)
+        3
+    """
+    N = 1
+    error = float("inf")
+    while error > tolerancia:
+        puntos, pesos = gaussxw(N)
+        puntos_esc, pesos_esc = escalado(lim_inf, lim_sup, puntos, pesos)
+        resultado = Aprox_integ(func, pesos_esc, puntos_esc)
+        error = abs(resultado-resultado_correcto)/resultado_correcto
+        print(f"N = {N}, Resultado = {resultado:.8f}, Error = {error:.8e}")
+        if error <= tolerancia:
+            print(f"\nCon N = {N}, se alcanza el resultado correcto: {resultado:.8f}")
+            return N
+        N += 1
+```
+
 ## Tutorial de ejecución del algoritmo completo:
 
 Configurar el intervalo, la tolerancia y el valor correcto a encontrar, además de llamar la función `encontrar_N_aproximado`:

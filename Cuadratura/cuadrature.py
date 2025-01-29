@@ -133,7 +133,7 @@ def encontrar_N_aproximado(func, lim_inf,lim_sup,resultado_correcto, tolerancia)
         puntos, pesos = gaussxw(N)
         puntos_esc, pesos_esc = escalado(lim_inf, lim_sup, puntos, pesos)
         resultado = Aprox_integ(func, pesos_esc, puntos_esc)
-        error = abs(resultado_correcto - resultado)
+        error = abs(resultado-resultado_correcto)/resultado_correcto
         print(f"N = {N}, Resultado = {resultado:.8f}, Error = {error:.8e}")
         if error <= tolerancia:
             print(f"\nCon N = {N}, se alcanza el resultado correcto: {resultado:.8f}")
