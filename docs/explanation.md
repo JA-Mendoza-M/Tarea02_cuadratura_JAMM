@@ -34,7 +34,7 @@ $$
 ## Ventajas del Método
 
 - Alta precisión con un número relativamente bajo de puntos de integración.
-- Convergencia rápida: el error decrece como $frac{constante}{N^2}$ al aumentar los puntos de muestreo.
+- Convergencia rápida: el error decrece como $cte/N^2$ al aumentar los puntos de muestreo.
 - Es ideal para funciones bien comportadas en el intervalo de integración.
 
 ## Limitaciones del Método
