@@ -511,51 +511,48 @@ f(x) = x^6 - x^2 \sin(2x)
 <p>Primero, se define la función que deseas integrar. En este caso:</p>
 <pre><code class="language-python">import numpy as np
 
-def func_grado6(xvar):
-    &quot;&quot;&quot;
-    Se define la función matemática x^6 - x^2 * sin(2x) a integrar.
+def func_grado6(xvar: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;Calcula la función matemática x^6 - x^2 * sin(2x).
 
-    Argumentos:
-        xvar (tipo float): Valores en los que se evalúa la función.
+    Parameters:
+        xvar (np.ndarray): Valores en los que se evalúa la función.
 
-    Devuelve:
-        Un valor tipo float que es el resultado de la evaluación de la función.
+    Returns:
+        np.ndarray: Resultado de la evaluación de la función.
 
-    Ejemplo:
+    Example:
         &gt;&gt;&gt; x = np.array([1, 2, 3])
         &gt;&gt;&gt; func_grado6(x)
         array([-0.90929743, 62.72789228, 717.97165513])
+
     &quot;&quot;&quot;
     return xvar**6 - xvar**2 * np.sin(2 * xvar)
-
 
 </code></pre>
 <h3 id="paso-2-implementar-el-calculo-de-puntos-y-pesos">Paso 2: Implementar el Cálculo de Puntos y Pesos</h3>
 <p>Se define la función para calcular los puntos y pesos de la cuadratura Gaussiana en el intervalo estándar <span class="arithmatex">\([-1, 1]\)</span>:</p>
-<pre><code class="language-python">def gaussxw(N):
-    &quot;&quot;&quot;
-    Calcula los puntos y pesos de cuadratura Gauss-Legendre para el intervalo [-1, 1].
+<pre><code class="language-python">def gaussxw(N: int) -&gt; tuple[np.ndarray, np.ndarray]:
+    &quot;&quot;&quot;Calcula los puntos y pesos de cuadratura Gauss-Legendre en el intervalo [-1, 1].
 
-    Argumentos:
-        N (tipo int): Número de puntos de cuadratura.
+    Parameters:
+        N (int): Número de puntos de cuadratura.
 
-    Devuelve:
-        Una tupla (tuple):
-            - np.ndarray: Puntos en el intervalo estándar [-1, 1].
-            - np.ndarray: Pesos en el intervalo estándar [-1, 1].
+    Returns:
+        tuple[np.ndarray, np.ndarray]: 
+            - Puntos en el intervalo [-1, 1].
+            - Pesos en el intervalo [-1, 1].
 
-    Ejemplo:
+    Example:
         &gt;&gt;&gt; puntos, pesos = gaussxw(3)
-        &gt;&gt;&gt; print(puntos)
-        [ 0.77459667  0.          -0.77459667]
-        &gt;&gt;&gt; print(pesos)
-        [0.55555556 0.88888889 0.55555556]
+        &gt;&gt;&gt; puntos
+        array([ 0.77459667,  0., -0.77459667])
+        &gt;&gt;&gt; pesos
+        array([0.55555556, 0.88888889, 0.55555556])
+
     &quot;&quot;&quot;
-    # Aproximación inicial
     a = np.linspace(3, 4 * (N - 1), N) / ((4 * N) + 2)
     x = np.cos(np.pi * a + 1 / (8 * N * N * np.tan(a)))
 
-    # Creación de los puntos utilizando el método de Newton
     epsilon = 1e-15
     delta = 1.0
     while delta &gt; epsilon:
@@ -568,80 +565,79 @@ def func_grado6(xvar):
         x -= dx
         delta = np.max(np.abs(dx))
 
-    # Cálculo de los pesos
-    w = 2 * (N + 1) * (N + 1) / (N * N * (1 - x * x) * dp * dp)
+    w = 2 * (N + 1) ** 2 / (N**2 * (1 - x**2) * dp**2)
     return x, w
 </code></pre>
 <h3 id="paso-3-escalar-los-puntos-y-pesos">Paso 3: Escalar los puntos y pesos</h3>
 <p>Se escalan los puntos y pesos calculados al intervalo deseado <span class="arithmatex">\([a, b]\)</span>:</p>
-<pre><code class="language-python">def escalado(lim_inf, lim_sup, puntos, pesos):
-    &quot;&quot;&quot;
-    Escala los puntos y pesos de [-1, 1] al intervalo [lim_inf, lim_sup].
+<pre><code class="language-python">def escalado(lim_inf: float, lim_sup: float, puntos: np.ndarray, pesos: np.ndarray) -&gt; tuple[np.ndarray, np.ndarray]:
+    &quot;&quot;&quot;Escala los puntos y pesos de [-1, 1] al intervalo [lim_inf, lim_sup].
 
-    Argumentos:
-        lim_inf (tipo float): Límite inferior de integración.
-        lim_sup (tipo float): Límite superior de integración.
+    Parameters:
+        lim_inf (float): Límite inferior de integración.
+        lim_sup (float): Límite superior de integración.
         puntos (np.ndarray): Puntos en el intervalo [-1, 1].
         pesos (np.ndarray): Pesos en el intervalo [-1, 1].
 
-    Devuelve:
-        Tupla (tuple):
-            - np.ndarray: Puntos escalados al intervalo [lim_inf, lim_sup].
-            - np.ndarray: Pesos escalados al intervalo [lim_inf, lim_sup].
+    Returns:
+        tuple[np.ndarray, np.ndarray]: 
+            - Puntos escalados al intervalo [lim_inf, lim_sup].
+            - Pesos escalados al intervalo [lim_inf, lim_sup].
 
-    Ejemplo:
+    Example:
         &gt;&gt;&gt; puntos = np.array([-0.77459667, 0.0, 0.77459667])
         &gt;&gt;&gt; pesos = np.array([0.55555556, 0.88888889, 0.55555556])
         &gt;&gt;&gt; escalado(1, 3, puntos, pesos)
         (array([1.11270167, 2.0, 2.88729833]), array([0.55555556, 0.88888889, 0.55555556]))
+
     &quot;&quot;&quot;
     return 0.5 * (lim_sup - lim_inf) * puntos + 0.5 * (lim_sup + lim_inf), 0.5 * (lim_sup - lim_inf) * pesos
 </code></pre>
 <h3 id="paso-4-calcular-la-integral-aproximada">Paso 4: Calcular la integral aproximada</h3>
 <p>Se define una función que use los puntos, pesos y la función dada para calcular la integral aproximada:</p>
-<pre><code class="language-python">def Aprox_integ(func, pesos, puntos):
-    &quot;&quot;&quot;
-    Calcula la integral aproximada utilizando cuadratura Gaussiana.
+<pre><code class="language-python">def Aprox_integ(func: callable, pesos: np.ndarray, puntos: np.ndarray) -&gt; float:
+    &quot;&quot;&quot;Calcula la integral aproximada utilizando cuadratura Gaussiana.
 
-    Argumentos:
-        func (function): Función a integrar.
+    Parameters:
+        func (callable): Función a integrar.
         pesos (np.ndarray): Pesos de cuadratura.
         puntos (np.ndarray): Puntos de colocación.
 
-    Devuelve:
-         Un float: Resultado de la integral aproximada.
+    Returns:
+        float: Resultado de la integral aproximada.
 
-    Ejemplo:
+    Example:
         &gt;&gt;&gt; puntos = np.array([1.11270167, 2.0, 2.88729833])
         &gt;&gt;&gt; pesos = np.array([0.55555556, 0.88888889, 0.55555556])
         &gt;&gt;&gt; Aprox_integ(func_grado6, pesos, puntos)
         309.45365734
+
     &quot;&quot;&quot;
     return np.sum(pesos * func(puntos))
 </code></pre>
 <h3 id="paso-5-encontrar-en-n-necesario">Paso 5: Encontrar en N necesario</h3>
 <p>Se define una función que itera hasta encontrar un valor cuyo error sea igual o menor al valor de tolerancia:</p>
-<pre><code class="language-python">def encontrar_N_aproximado(func, lim_inf,lim_sup,resultado_correcto, tolerancia):
-    &quot;&quot;&quot;
-    Encuentra el valor de N necesario para aproximar la integral con una tolerancia específica.
+<pre><code class="language-python">def encontrar_N_aproximado(func: callable, lim_inf: float, lim_sup: float, resultado_correcto: float, tolerancia: float) -&gt; int:
+    &quot;&quot;&quot;Encuentra el valor de N necesario para aproximar la integral con una tolerancia específica.
 
-    Argumentos:
-        func (function): Función a integrar.
+    Parameters:
+        func (callable): Función a integrar.
         lim_inf (float): Límite inferior de integración.
         lim_sup (float): Límite superior de integración.
-        resultado_correcto (float): Valor correcto de la integral para comparar.
-        tolerancia (float): Tolerancia permitida para el error.
+        resultado_correcto (float): Valor de referencia para la integral.
+        tolerancia (float): Tolerancia permitida para el error relativo.
 
-    Devuelve:
+    Returns:
         int: Número de puntos (N) necesario para alcanzar la tolerancia.
 
-    Ejemplo:
+    Example:
         &gt;&gt;&gt; func = lambda x: x**2
         &gt;&gt;&gt; a, b = 0, 1
         &gt;&gt;&gt; resultado_correcto = 1/3
         &gt;&gt;&gt; tolerancia = 1e-6
         &gt;&gt;&gt; encontrar_N_aproximado(func, a, b, resultado_correcto, tolerancia)
         3
+
     &quot;&quot;&quot;
     N = 1
     error = float(&quot;inf&quot;)
@@ -649,12 +645,13 @@ def func_grado6(xvar):
         puntos, pesos = gaussxw(N)
         puntos_esc, pesos_esc = escalado(lim_inf, lim_sup, puntos, pesos)
         resultado = Aprox_integ(func, pesos_esc, puntos_esc)
-        error = abs(resultado-resultado_correcto)/resultado_correcto
+        error = abs(resultado - resultado_correcto) / resultado_correcto
         print(f&quot;N = {N}, Resultado = {resultado:.8f}, Error = {error:.8e}&quot;)
         if error &lt;= tolerancia:
             print(f&quot;\nCon N = {N}, se alcanza el resultado correcto: {resultado:.8f}&quot;)
             return N
         N += 1
+
 </code></pre>
 <h2 id="tutorial-de-ejecucion-del-algoritmo-completo">Tutorial de ejecución del algoritmo completo:</h2>
 <p>Configurar el intervalo, la tolerancia y el valor correcto a encontrar, además de llamar la función <code>encontrar_N_aproximado</code>:</p>
